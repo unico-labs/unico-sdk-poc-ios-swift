@@ -8,7 +8,7 @@ target 'sample-app-new' do
 
     # pod 'AcessoBio', :path => '/Users/iwallace/Documents/GitHub/acessobio-ios'
 
-    pod ‘unicocheck-ios’, '2.3.3'
+    pod 'unicocheck-ios', git: 'https://github.com/acesso-io/unico-check-ios', tag: '2.3.18'
 
   # Pods for sample-app-new
 
