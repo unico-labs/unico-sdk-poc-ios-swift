@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5FA762542838121A00422A5B /* sample-app-new.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FA762532838121A00422A5B /* sample-app-new.json */; };
-		5FA762552838121A00422A5B /* sample-app-new.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FA762532838121A00422A5B /* sample-app-new.json */; };
-		5FA762562838121A00422A5B /* sample-app-new.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FA762532838121A00422A5B /* sample-app-new.json */; };
-		5FA762582838173F00422A5B /* SampleAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA762572838173F00422A5B /* SampleAppConfig.swift */; };
-		5FA762592838173F00422A5B /* SampleAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA762572838173F00422A5B /* SampleAppConfig.swift */; };
-		5FA7625A2838173F00422A5B /* SampleAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA762572838173F00422A5B /* SampleAppConfig.swift */; };
+		5FA762582838173F00422A5B /* SDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA762572838173F00422A5B /* SDKConfig.swift */; };
+		5FA762592838173F00422A5B /* SDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA762572838173F00422A5B /* SDKConfig.swift */; };
+		5FA7625A2838173F00422A5B /* SDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA762572838173F00422A5B /* SDKConfig.swift */; };
 		5FA7625C283819A800422A5B /* SampleAppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7625B283819A800422A5B /* SampleAppThemes.swift */; };
 		5FA7625D283819A800422A5B /* SampleAppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7625B283819A800422A5B /* SampleAppThemes.swift */; };
 		5FA7625E283819A800422A5B /* SampleAppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7625B283819A800422A5B /* SampleAppThemes.swift */; };
@@ -51,8 +48,7 @@
 		0FBC3855726E5D1DAB4B601B /* Pods-sample-app-new-sample-app-newUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-app-new-sample-app-newUITests.release.xcconfig"; path = "Target Support Files/Pods-sample-app-new-sample-app-newUITests/Pods-sample-app-new-sample-app-newUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2D36EEC56F7DC2C19629B57C /* Pods-sample-app-new-sample-app-newUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-app-new-sample-app-newUITests.debug.xcconfig"; path = "Target Support Files/Pods-sample-app-new-sample-app-newUITests/Pods-sample-app-new-sample-app-newUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49DCFFFEDDDDBAABCDA5C8D9 /* Pods_sample_app_new_sample_app_newUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_app_new_sample_app_newUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FA762532838121A00422A5B /* sample-app-new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample-app-new.json"; sourceTree = "<group>"; };
-		5FA762572838173F00422A5B /* SampleAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppConfig.swift; sourceTree = "<group>"; };
+		5FA762572838173F00422A5B /* SDKConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKConfig.swift; sourceTree = "<group>"; };
 		5FA7625B283819A800422A5B /* SampleAppThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppThemes.swift; sourceTree = "<group>"; };
 		5FA9F13028356D000094DF1A /* sample-app-new.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-app-new.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FA9F13328356D000094DF1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,11 +134,10 @@
 		5FA9F13228356D000094DF1A /* sample-app-new */ = {
 			isa = PBXGroup;
 			children = (
-				5FA762532838121A00422A5B /* sample-app-new.json */,
 				5FA9F13328356D000094DF1A /* AppDelegate.swift */,
 				5FA9F13528356D000094DF1A /* SceneDelegate.swift */,
 				5FA9F13728356D000094DF1A /* ViewController.swift */,
-				5FA762572838173F00422A5B /* SampleAppConfig.swift */,
+				5FA762572838173F00422A5B /* SDKConfig.swift */,
 				5FA9F13928356D000094DF1A /* Main.storyboard */,
 				5FA9F13C28356D020094DF1A /* Assets.xcassets */,
 				5FA9F13E28356D020094DF1A /* LaunchScreen.storyboard */,
@@ -295,7 +290,6 @@
 			files = (
 				5FA9F14028356D020094DF1A /* LaunchScreen.storyboard in Resources */,
 				5FA9F13D28356D020094DF1A /* Assets.xcassets in Resources */,
-				5FA762542838121A00422A5B /* sample-app-new.json in Resources */,
 				5FA9F13B28356D000094DF1A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,7 +298,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FA762552838121A00422A5B /* sample-app-new.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +305,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FA762562838121A00422A5B /* sample-app-new.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +454,7 @@
 			files = (
 				5FA9F13828356D000094DF1A /* ViewController.swift in Sources */,
 				5FA7625C283819A800422A5B /* SampleAppThemes.swift in Sources */,
-				5FA762582838173F00422A5B /* SampleAppConfig.swift in Sources */,
+				5FA762582838173F00422A5B /* SDKConfig.swift in Sources */,
 				5FA9F13428356D000094DF1A /* AppDelegate.swift in Sources */,
 				5FA9F13628356D000094DF1A /* SceneDelegate.swift in Sources */,
 			);
@@ -473,7 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FA9F14B28356D030094DF1A /* sample_app_newTests.swift in Sources */,
-				5FA762592838173F00422A5B /* SampleAppConfig.swift in Sources */,
+				5FA762592838173F00422A5B /* SDKConfig.swift in Sources */,
 				5FA7625D283819A800422A5B /* SampleAppThemes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,7 +474,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FA7625A2838173F00422A5B /* SampleAppConfig.swift in Sources */,
+				5FA7625A2838173F00422A5B /* SDKConfig.swift in Sources */,
 				5FA7625E283819A800422A5B /* SampleAppThemes.swift in Sources */,
 				5FA9F15528356D030094DF1A /* sample_app_newUITests.swift in Sources */,
 				5FA9F15728356D030094DF1A /* sample_app_newUITestsLaunchTests.swift in Sources */,

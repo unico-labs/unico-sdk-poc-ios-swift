@@ -1,129 +1,107 @@
-//
-//  ViewController.swift
-//  sample-app-new
-//
-//  Created by Igor Wallace Silva Leite on 18/05/22.
-//
-import AcessoBio
 import UIKit
+import AcessoBio
 
-class ViewController: UIViewController, AcessoBioManagerDelegate, SelfieCameraDelegate,
-                      AcessoBioSelfieDelegate,DocumentCameraDelegate,
-                      AcessoBioDocumentDelegate{
+class ViewController: UIViewController {
 
-
-
-
-func onCameraReadyDocument(_ cameraOpener: AcessoBioCameraOpenerDelegate!) {
-    cameraOpener.openDocument(
-           DocumentEnums.RG,
-           delegate: self
-       )
-}
-
-func onCameraFailedDocument(_ message: ErrorPrepare!) {
-    print("errosCameraDocument")
-}
-
-func onSuccessDocument(_ result: DocumentResult!) {
-    print("onSucess")
-    
-}
-
-func onErrorDocument(_ errorBio: ErrorBio!) {
-   print("onErrorDocument")
-}
-
-    func onCameraReady(_ cameraOpener: AcessoBioCameraOpenerDelegate!) {
-        cameraOpener.open(self)   }
-    
-    func onCameraFailed(_ message: ErrorPrepare!) {
-      print("errosCamera")
-    }
-    
-    func onSuccessSelfie(_ result: SelfieResult!) {
-//         print("onSucess")
-//        NSLog("%@", result.encrypted)
-    }
-    
-    func onErrorSelfie(_ errorBio: ErrorBio!) {
-
-        print("onError")
-    }
-//
-    
-    
-    
-    
-    
-    
-    func onErrorAcessoBioManager(_ error: ErrorBio!) {
-        print("onErrorAcessoBioManager")
-    }
-    
-    func onUserClosedCameraManually() {
-        print("onErrorUserClosedCameraManually")
-    }
-    
-    func onSystemClosedCameraTimeoutSession() {
-        print("onErroronSystemClosedCameraTimeoutSession")
-    }
-    
-    func onSystemChangedTypeCameraTimeoutFaceInference() {
-        print("onErroronSystemChangedTypeCameraTimeoutFaceInference")
-    }
-    
-    
-    var unicoCheck: AcessoBioManager!
+    @IBOutlet weak var selfieCameraConfig: UISegmentedControl!
+    private var manager: AcessoBioManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        unicoCheck = AcessoBioManager(viewController: self)
-        unicoCheck.setTheme(SampleAppThemes())
-        
-       
-    }
-
-    
-    
-    @IBAction func btnCamera_normal(_ sender: UIButton) {
-        unicoCheck.setSmartFrame(false)
-           unicoCheck.setAutoCapture(false)
-
-//      opção caso queira usar o arquivo JSON
-
-//        unicoCheck.build().prepareSelfieCamera(self, jsonConfigName:
-//               "sample-app-new")
-
-//      opção caso queira usar o AppConfig
-        unicoCheck.build().prepareSelfieCamera(self, config: SampleAppConfig())
+        manager = AcessoBioManager(viewController: self)
     }
     
-    
-    @IBAction func btnCameraSmart(_ sender: UIButton) {
-        unicoCheck.setSmartFrame(true)
-           unicoCheck.setAutoCapture(true)
-//      opção caso queira usar o arquivo JSON
-//        unicoCheck.build().prepareSelfieCamera(self, jsonConfigName:
-//               "sample-app-new")
-
-//      opção caso queira usar o AppConfig
-        unicoCheck.build().prepareSelfieCamera(self, config: SampleAppConfig())
+    private func configureSelfieCamera() {
+        var smartCamera = true
+        if selfieCameraConfig.selectedSegmentIndex == 0 {
+            smartCamera = false
+        }
+        manager?.setSmartFrame(smartCamera)
+        manager?.setAutoCapture(smartCamera)
     }
     
-
-    @IBAction func btnDocuments(_ sender: UIButton) {
-//      opção caso queira usar o arquivo JSON
-//        unicoCheck.build().prepareSelfieCamera(self, jsonConfigName:
-//               "sample-app-new")
-
-//      opção caso queira usar o AppConfig
-        unicoCheck.build().prepareDocumentCamera(self, config: SampleAppConfig())
+//    MARK: - Button Actions
+    
+    @IBAction func startCamera(_ sender: Any) {
+        configureSelfieCamera()
+        manager?.build().prepareSelfieCamera(
+            self,
+            config: SDKConfig())
     }
     
-    
+    @IBAction func startDocuments(_ sender: Any) {
+        manager?.build().prepareDocumentCamera(
+            self,
+            config: SDKConfig())
+    }
 }
 
+// MARK: - AcessoBioManagerDelegate
+
+extension ViewController: AcessoBioManagerDelegate {
+    func onErrorAcessoBioManager(_ error: ErrorBio!) {
+        print("\(#fileID) > \(#function)")
+    }
+    
+    func onUserClosedCameraManually() {
+        print("\(#fileID) > \(#function)")
+    }
+    
+    func onSystemClosedCameraTimeoutSession() {
+        print("\(#fileID) > \(#function)")
+    }
+    
+    func onSystemChangedTypeCameraTimeoutFaceInference() {
+        print("\(#fileID) > \(#function)")
+    }
+}
+
+// MARK: - SelfieCameraDelegate
+
+extension ViewController: SelfieCameraDelegate {
+    func onCameraReady(_ cameraOpener: AcessoBioCameraOpenerDelegate!) {
+        print("\(#fileID) > \(#function)")
+        cameraOpener.open(self)
+    }
+    
+    func onCameraFailed(_ message: ErrorPrepare!) {
+        print("\(#fileID) > \(#function) > \(message.desc)")
+    }
+}
+
+// MARK: - AcessoBioSelfieDelegate
+
+extension ViewController: AcessoBioSelfieDelegate {
+    func onSuccessSelfie(_ result: AcessoBio.SelfieResult!) {
+        print("\(#fileID) > \(#function)")
+    }
+    
+    func onErrorSelfie(_ errorBio: ErrorBio!) {
+        print("\(#fileID) > \(#function)")
+    }
+}
+
+// MARK: - DocumentCameraDelegate
+
+extension ViewController: DocumentCameraDelegate {
+    func onCameraReadyDocument(_ cameraOpener: AcessoBioCameraOpenerDelegate!) {
+        cameraOpener.openDocument(DocumentEnums.RG, delegate: self)
+    }
+    
+    func onCameraFailedDocument(_ message: ErrorPrepare!) {
+        print("\(#fileID) > \(#function)")
+    }
+}
+
+// MARK: - AcessoBioDocumentDelegate
+
+extension ViewController: AcessoBioDocumentDelegate {
+    func onSuccessDocument(_ result: AcessoBio.DocumentResult!) {
+        print("\(#fileID) > \(#function)")
+    }
+    
+    func onErrorDocument(_ errorBio: ErrorBio!) {
+        print("\(#fileID) > \(#function)")
+    }
+}
