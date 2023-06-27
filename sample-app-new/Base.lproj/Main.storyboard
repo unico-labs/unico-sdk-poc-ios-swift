@@ -17,9 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-n1-YEo">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-n1-YEo">
                                 <rect key="frame" x="20" y="518" width="374" height="77"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="GD0-n1-YEo" secondAttribute="height" multiplier="34:7" id="zYN-jr-mnW"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Iniciar documentos">
                                     <backgroundConfiguration key="background">
@@ -33,9 +35,11 @@
                                     <action selector="startDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l4i-I8-ris"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-sS-Hae">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-sS-Hae">
                                 <rect key="frame" x="20" y="244" width="374" height="77"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="xqc-sS-Hae" secondAttribute="height" multiplier="34:7" id="Xm1-Wa-h22"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Iniciar camera">
                                     <backgroundConfiguration key="background">
@@ -49,17 +53,21 @@
                                     <action selector="startCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E52-a4-Ubp"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qVR-Rn-MF0">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qVR-Rn-MF0">
                                 <rect key="frame" x="20" y="142" width="374" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="ZRh-5f-i6c"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Normal"/>
                                     <segment title="Inteligente"/>
                                 </segments>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Configurar camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-HC-V4I">
-                                <rect key="frame" x="20" y="90" width="142" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configurar camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-HC-V4I">
+                                <rect key="frame" x="20" y="90" width="374" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="gjh-Yx-w4v"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -67,6 +75,21 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qVR-Rn-MF0" firstAttribute="top" secondItem="UDp-HC-V4I" secondAttribute="bottom" constant="31" id="2Q0-Xk-bri"/>
+                            <constraint firstItem="UDp-HC-V4I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4qZ-Fo-XgH"/>
+                            <constraint firstItem="UDp-HC-V4I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8po-Tb-yeG"/>
+                            <constraint firstItem="GD0-n1-YEo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="BA3-h8-Q9i"/>
+                            <constraint firstItem="xqc-sS-Hae" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Chx-4B-Eq1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GD0-n1-YEo" secondAttribute="trailing" constant="20" id="J0v-LE-QAA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qVR-Rn-MF0" secondAttribute="trailing" constant="20" id="Orz-uL-BnZ"/>
+                            <constraint firstItem="GD0-n1-YEo" firstAttribute="top" secondItem="xqc-sS-Hae" secondAttribute="bottom" constant="197" id="ZCR-vm-xME"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GD0-n1-YEo" secondAttribute="bottom" constant="267" id="ZSh-Gm-vrO"/>
+                            <constraint firstItem="UDp-HC-V4I" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="a4D-pd-Lo1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xqc-sS-Hae" secondAttribute="trailing" constant="20" id="dzJ-9O-1aG"/>
+                            <constraint firstItem="qVR-Rn-MF0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="lzZ-Bv-Uyh"/>
+                            <constraint firstItem="xqc-sS-Hae" firstAttribute="top" secondItem="qVR-Rn-MF0" secondAttribute="bottom" constant="71" id="r2d-X1-8b3"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="selfieCameraConfig" destination="qVR-Rn-MF0" id="cqE-Sl-AW2"/>
