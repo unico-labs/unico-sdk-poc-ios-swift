@@ -12,11 +12,11 @@ jobs:
         id: pull_request_scan
         run : echo "Run on" ${{ github.event_name }}
       - name: Checkmarx One - Check vulnerabilities with block
-        uses: acesso-io/devsec-ast-github-action@main
+        uses: checkmarx/ast-github-action@main #Github Action version
         with:
           project_name: ${{ github.repository }}
           cx_tenant: ${{ secrets.CHECKMARX_TENANT_NAME }}
-          base_uri: https://ast.checkmarx.net
+          base_uri: ${{ secrets.CHECKMARX_BASE_URI }} 
           cx_client_id: ${{ secrets.CHECKMARX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           additional_params: ${{ secrets.CHECKMARX_SCAN_PARAMETER_ON_PR }} 
@@ -30,11 +30,11 @@ jobs:
         id: pull_scan
         run : echo "Run on" ${{ github.event_name }}
       - name: Checkmarx One - Check vulnerabilities without block
-        uses: acesso-io/devsec-ast-github-action@main
+        uses: checkmarx/ast-github-action@main #Github Action version
         with:
           project_name: ${{ github.repository }}
           cx_tenant: ${{ secrets.CHECKMARX_TENANT_NAME }}
-          base_uri: https://ast.checkmarx.net
+          base_uri: ${{ secrets.CHECKMARX_BASE_URI }} 
           cx_client_id: ${{ secrets.CHECKMARX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CHECKMARX_CLIENT_SECRET }}
           additional_params: ${{ secrets.CHECKMARX_SCAN_PARAMETER_ON_PUSH }}
