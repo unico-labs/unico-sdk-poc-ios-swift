@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         manager = AcessoBioManager(viewController: self)
+        manager?.setTheme(SampleAppThemes())
     }
     
     private func configureSelfieCamera() {
