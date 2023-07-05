@@ -17,28 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-n1-YEo">
-                                <rect key="frame" x="20" y="518" width="374" height="77"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="GD0-n1-YEo" secondAttribute="height" multiplier="34:7" id="zYN-jr-mnW"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Iniciar documentos">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
-                                    </backgroundConfiguration>
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
-                                    <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="btnDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Al-ao-6QF"/>
-                                    <action selector="startDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l4i-I8-ris"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-sS-Hae">
-                                <rect key="frame" x="20" y="244" width="374" height="77"/>
+                                <rect key="frame" x="20" y="244" width="374" height="38"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="xqc-sS-Hae" secondAttribute="height" multiplier="34:7" id="Xm1-Wa-h22"/>
+                                    <constraint firstAttribute="height" constant="38" id="tM3-oB-PN0"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Iniciar camera">
@@ -49,7 +31,6 @@
                                     <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="btnDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="upf-15-h0t"/>
                                     <action selector="startCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E52-a4-Ubp"/>
                                 </connections>
                             </button>
@@ -72,23 +53,49 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-n1-YEo">
+                                <rect key="frame" x="12" y="671" width="374" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="LJI-65-g6D"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Iniciar documentos">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
+                                    <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="startDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l4i-I8-ris"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8O1-Vi-PSv">
+                                <rect key="frame" x="0.0" y="430" width="414" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="rKK-dc-Hk8"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1Ec-XV-X31"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="qVR-Rn-MF0" firstAttribute="top" secondItem="UDp-HC-V4I" secondAttribute="bottom" constant="31" id="2Q0-Xk-bri"/>
+                            <constraint firstItem="GD0-n1-YEo" firstAttribute="top" secondItem="8O1-Vi-PSv" secondAttribute="bottom" constant="25" id="4q5-sy-dhT"/>
                             <constraint firstItem="UDp-HC-V4I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4qZ-Fo-XgH"/>
+                            <constraint firstItem="xqc-sS-Hae" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5zb-qw-gDd"/>
                             <constraint firstItem="UDp-HC-V4I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8po-Tb-yeG"/>
-                            <constraint firstItem="GD0-n1-YEo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="BA3-h8-Q9i"/>
-                            <constraint firstItem="xqc-sS-Hae" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Chx-4B-Eq1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GD0-n1-YEo" secondAttribute="trailing" constant="20" id="J0v-LE-QAA"/>
+                            <constraint firstItem="8O1-Vi-PSv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Fgb-Pk-96k"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GD0-n1-YEo" secondAttribute="trailing" constant="28" id="H3c-FO-7Li"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GD0-n1-YEo" secondAttribute="bottom" constant="149" id="Ib0-Nf-s74"/>
+                            <constraint firstItem="GD0-n1-YEo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="KjK-r0-akf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qVR-Rn-MF0" secondAttribute="trailing" constant="20" id="Orz-uL-BnZ"/>
-                            <constraint firstItem="GD0-n1-YEo" firstAttribute="top" secondItem="xqc-sS-Hae" secondAttribute="bottom" constant="197" id="ZCR-vm-xME"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GD0-n1-YEo" secondAttribute="bottom" constant="267" id="ZSh-Gm-vrO"/>
+                            <constraint firstItem="8O1-Vi-PSv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YWB-yc-K7H"/>
                             <constraint firstItem="UDp-HC-V4I" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="a4D-pd-Lo1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xqc-sS-Hae" secondAttribute="trailing" constant="20" id="dzJ-9O-1aG"/>
                             <constraint firstItem="qVR-Rn-MF0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="lzZ-Bv-Uyh"/>
-                            <constraint firstItem="xqc-sS-Hae" firstAttribute="top" secondItem="qVR-Rn-MF0" secondAttribute="bottom" constant="71" id="r2d-X1-8b3"/>
+                            <constraint firstItem="xqc-sS-Hae" firstAttribute="top" secondItem="qVR-Rn-MF0" secondAttribute="bottom" constant="71" id="s1F-bf-Qa4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xqc-sS-Hae" secondAttribute="trailing" constant="20" id="tiM-oo-0EI"/>
                         </constraints>
                     </view>
                     <connections>

@@ -5,6 +5,15 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var selfieCameraConfig: UISegmentedControl!
     private var manager: AcessoBioManager?
+    private lazy var selectedDocument = DocumentEnums.CPF
+    private let documents = [("CPF", DocumentEnums.CPF),
+                             ("CNH", DocumentEnums.CNH),
+                             ("CNH Frente", DocumentEnums.cnhFrente),
+                             ("CNH Verso", DocumentEnums.cnhVerso),
+                             ("RG", DocumentEnums.RG),
+                             ("RG Frente", DocumentEnums.rgFrente),
+                             ("RG Verso", DocumentEnums.rgVerso),
+                             ("Outros", DocumentEnums.none)]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +50,7 @@ class ViewController: UIViewController {
 
 extension ViewController: AcessoBioManagerDelegate {
     func onErrorAcessoBioManager(_ error: ErrorBio!) {
-        print("\(#fileID) > \(#function)")
+        print("\(#fileID) > \(#function) > \(error.code)")
     }
     
     func onUserClosedCameraManually() {
@@ -78,7 +87,7 @@ extension ViewController: AcessoBioSelfieDelegate {
     }
     
     func onErrorSelfie(_ errorBio: ErrorBio!) {
-        print("\(#fileID) > \(#function)")
+        print("\(#fileID) > \(#function) > \(errorBio.code)")
     }
 }
 
@@ -86,11 +95,11 @@ extension ViewController: AcessoBioSelfieDelegate {
 
 extension ViewController: DocumentCameraDelegate {
     func onCameraReadyDocument(_ cameraOpener: AcessoBioCameraOpenerDelegate!) {
-        cameraOpener.openDocument(DocumentEnums.RG, delegate: self)
+        cameraOpener.openDocument(selectedDocument, delegate: self)
     }
     
     func onCameraFailedDocument(_ message: ErrorPrepare!) {
-        print("\(#fileID) > \(#function)")
+        print("\(#fileID) > \(#function) > \(message.desc)")
     }
 }
 
@@ -103,5 +112,32 @@ extension ViewController: AcessoBioDocumentDelegate {
     
     func onErrorDocument(_ errorBio: ErrorBio!) {
         print("\(#fileID) > \(#function)")
+    }
+}
+
+ // MARK: - Document Picker - UIPickerViewDelegate
+
+extension ViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard component == 0 else { return nil }
+        return documents[row].0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard component == 0 else { return }
+        selectedDocument = documents[row].1
+    }
+}
+
+// MARK: - Document Picker - UIPickerViewDataSource
+
+extension ViewController: UIPickerViewDataSource {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        guard component == 0 else { return 0 }
+        return documents.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
     }
 }
