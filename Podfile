@@ -1,17 +1,11 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '11.0'
 
 target 'sample-app-new' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-
-    # pod 'AcessoBio', :path => '/Users/iwallace/Documents/GitHub/acessobio-ios'
-
-    pod 'unicocheck-ios', git: 'https://github.com/acesso-io/unico-check-ios', tag: '2.3.18'
-
-  # Pods for sample-app-new
-
+  pod ‘unicocheck-ios’
 
   target 'sample-app-newTests' do
     inherit! :search_paths
