@@ -1,6 +1,6 @@
-<p align='center'>
-  <a href='https://unico.io'>
-    <img width='350' src='https://unico.io/wp-content/uploads/2022/07/check.svg'></img>
+<p align="center">
+  <a href="https://unico.io">
+    <img width="350" src="https://unico.io/wp-content/uploads/2024/05/idcloud-horizontal-color.svg">
   </a>
 </p>
 
