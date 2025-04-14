@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         
         manager = AcessoBioManager(viewController: self)
         manager?.setTheme(SampleAppThemes())
+        manager?.setEnvironment(.UAT) // alterar para PROD para SDKkey de PROD
     }
     
     private func configureSelfieCamera() {
