@@ -4,10 +4,10 @@ import AcessoBio
 final class SDKConfig: AcessoBioConfigDataSource {
 
     func getBundleIdentifier() -> String {
-       "<YOUR_MOBILE_BUNDLE_IDENTIFIER>"
+       "com.testeunicomobile.app"
     }
     
     func getHostKey() -> String {
-       "<YOUR_HOST_SDKKEY>" //new sdkkey
+       "r001-6e426b4b-8ffe-4af2-b279-08f94ce3d2e4" //new sdkkey
     }
 }

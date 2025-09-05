@@ -1,0 +1,16 @@
+PODS:
+  - unicocheck-ios (2.20.1)
+
+DEPENDENCIES:
+  - unicocheck-ios (= 2.20.1)
+
+SPEC REPOS:
+  trunk:
+    - unicocheck-ios
+
+SPEC CHECKSUMS:
+  unicocheck-ios: be30a4f09075b2b709ef5b4a896cc69fd19bd95a
+
+PODFILE CHECKSUM: 178e1c7bff058998fc127c8c923097822c9254c3
+
+COCOAPODS: 1.16.2
