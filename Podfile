@@ -5,7 +5,7 @@ target 'sample-app-new' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'unicocheck-ios', '2.20.1'
+  pod 'unicocheck-ios', '2.20.2'
 
   target 'sample-app-newTests' do
     inherit! :search_paths
