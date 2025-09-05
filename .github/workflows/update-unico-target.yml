@@ -1,4 +1,4 @@
-name: Update Unico SDK Flutter in Target Repo
+name: Update Unico SDK IOS in Target Repo
 
 on:
   schedule:
