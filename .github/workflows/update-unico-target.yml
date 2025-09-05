@@ -1,0 +1,50 @@
+name: Update Unico SDK Flutter in Target Repo
+
+on:
+  schedule:
+    - cron: "0 9 */10 * *"   # A cada 10 dias, às 9h UTC
+  workflow_dispatch:
+
+jobs:
+  update-sdk:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout do repositório destino (target-repo)
+      - name: Checkout destino
+        uses: actions/checkout@v4
+        with:
+          repository: unico-labs/unico-sdk-poc-ios-swift
+          token: ${{ secrets.TARGET_REPO_PAT }}
+          path: target-repo
+          persist-credentials: false
+
+      # 2️⃣ Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3️⃣ Install Python dependencies
+      - name: Install Python dependencies
+        run: pip install requests beautifulsoup4 pyyaml
+
+      # 4️⃣ Install GitHub CLI
+      - name: Install GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install gh -y
+      
+      # 5️⃣ Authenticate GitHub CLI
+      - name: Authenticate Git & GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
+        run: |
+          gh auth setup-git
+
+      # 6️⃣ Run update script
+      - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
+        working-directory: ./target-repo
+        run: python scripts/update_unico_target.py
