@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,88 +14,65 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="sample_app_new" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-sS-Hae">
-                                <rect key="frame" x="20" y="244" width="374" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="tM3-oB-PN0"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Iniciar camera">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
-                                    </backgroundConfiguration>
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
-                                    <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="startCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E52-a4-Ubp"/>
-                                </connections>
-                            </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qVR-Rn-MF0">
-                                <rect key="frame" x="20" y="142" width="374" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="ZRh-5f-i6c"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Normal"/>
-                                    <segment title="Inteligente"/>
-                                </segments>
-                            </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configurar camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-HC-V4I">
-                                <rect key="frame" x="20" y="90" width="374" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="gjh-Yx-w4v"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-n1-YEo">
-                                <rect key="frame" x="12" y="671" width="374" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="LJI-65-g6D"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Iniciar documentos">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
-                                    </backgroundConfiguration>
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
-                                    <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="startDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l4i-I8-ris"/>
-                                </connections>
-                            </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8O1-Vi-PSv">
-                                <rect key="frame" x="0.0" y="430" width="414" height="216"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="rKK-dc-Hk8"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1Ec-XV-X31"/>
-                                </connections>
-                            </pickerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="stackMain">
+                                <rect key="frame" x="36.666666666666657" y="192.33333333333331" width="320" height="517.66666666666674"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unicologo" translatesAutoresizingMaskIntoConstraints="NO" id="DrR-Jy-Ejr">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Câmera para Selfie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-HC-V4I">
+                                        <rect key="frame" x="0.0" y="54" width="320" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qVR-Rn-MF0">
+                                        <rect key="frame" x="0.0" y="97.999999999999972" width="320" height="32"/>
+                                        <segments>
+                                            <segment title="Normal"/>
+                                            <segment title="Inteligente"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-sS-Hae">
+                                        <rect key="frame" x="0.0" y="148.99999999999997" width="320" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Iniciar Câmera">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="startCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E52-a4-Ubp"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Câmera para Documentos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDw-Oy-zyZ">
+                                        <rect key="frame" x="0.0" y="203.33333333333334" width="320" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-n1-YEo">
+                                        <rect key="frame" x="0.0" y="247.33333333333334" width="320" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Iniciar Documentos">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="startDocuments:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l4i-I8-ris"/>
+                                        </connections>
+                                    </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8O1-Vi-PSv">
+                                        <rect key="frame" x="0.0" y="301.66666666666663" width="320" height="216"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="rKK-dc-Hk8"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="1Ec-XV-X31"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="qVR-Rn-MF0" firstAttribute="top" secondItem="UDp-HC-V4I" secondAttribute="bottom" constant="31" id="2Q0-Xk-bri"/>
-                            <constraint firstItem="GD0-n1-YEo" firstAttribute="top" secondItem="8O1-Vi-PSv" secondAttribute="bottom" constant="25" id="4q5-sy-dhT"/>
-                            <constraint firstItem="UDp-HC-V4I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4qZ-Fo-XgH"/>
-                            <constraint firstItem="xqc-sS-Hae" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5zb-qw-gDd"/>
-                            <constraint firstItem="UDp-HC-V4I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8po-Tb-yeG"/>
-                            <constraint firstItem="8O1-Vi-PSv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Fgb-Pk-96k"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GD0-n1-YEo" secondAttribute="trailing" constant="28" id="H3c-FO-7Li"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GD0-n1-YEo" secondAttribute="bottom" constant="149" id="Ib0-Nf-s74"/>
-                            <constraint firstItem="GD0-n1-YEo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="KjK-r0-akf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qVR-Rn-MF0" secondAttribute="trailing" constant="20" id="Orz-uL-BnZ"/>
-                            <constraint firstItem="8O1-Vi-PSv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YWB-yc-K7H"/>
-                            <constraint firstItem="UDp-HC-V4I" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="a4D-pd-Lo1"/>
-                            <constraint firstItem="qVR-Rn-MF0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="lzZ-Bv-Uyh"/>
-                            <constraint firstItem="xqc-sS-Hae" firstAttribute="top" secondItem="qVR-Rn-MF0" secondAttribute="bottom" constant="71" id="s1F-bf-Qa4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xqc-sS-Hae" secondAttribute="trailing" constant="20" id="tiM-oo-0EI"/>
+                            <constraint firstItem="stackMain" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="stackCenterX"/>
+                            <constraint firstItem="stackMain" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="stackCenterY"/>
                         </constraints>
                     </view>
                     <connections>
@@ -108,14 +85,9 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="unicologo" width="115" height="34"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
