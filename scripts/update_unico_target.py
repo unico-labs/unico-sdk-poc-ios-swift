@@ -10,7 +10,8 @@ import os
 URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-ios/release-notes"
 DEPENDENCY = "unicocheck-ios"
 FILE_TO_UPDATE = "Podfile"
-REPO_PATH = "." # Path to the local repository
+script_dir = os.path.dirname(os.path.abspath(__file__))
+REPO_PATH = os.path.abspath(os.path.join(script_dir, '..'))
 
 # ===============================
 # Step 1: Fetch version and release date from the website
@@ -99,7 +100,7 @@ if current_version != site_version:
     subprocess.run(["git", "checkout", "-b", branch], check=True)
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
     subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
-    subprocess.run(["git", "add", "package.json"], check=True)
+    subprocess.run(["git", "add", "podfile_path"], check=True)
     subprocess.run(["git", "commit", "-m", f"chore: bump {DEPENDENCY} to v{site_version}"], check=True)
     subprocess.run(["git", "push", "origin", branch], check=True)
 
