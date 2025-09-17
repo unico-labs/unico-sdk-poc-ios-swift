@@ -1,50 +1,72 @@
-name: Update Unico SDK IOS in Target Repo
+name: Update Unico SDK Swift in Target Repo
 
 on:
   schedule:
-    - cron: "0 9 */10 * *"   # A cada 10 dias, às 9h UTC
-  workflow_dispatch:
+    - cron: "0 9 */10 * *"   # Every 10 days, at 9 AM UTC
+  workflow_dispatch:         # Allows manual execution
 
 jobs:
   update-sdk:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout do repositório destino (target-repo)
-      - name: Checkout destino
+      ### Step 0: Checkout the Action's repository (to get access to the script)
+      - name: Checkout Action repository
         uses: actions/checkout@v4
         with:
-          repository: unico-labs/unico-sdk-poc-ios-swift
+          persist-credentials: false
+
+      ### Step 1: Checkout the target repository (target-repo)
+      - name: Checkout target
+        uses: actions/checkout@v4
+        with:
+          repository: unico-labs/unico-sdk-poc-flutter
           token: ${{ secrets.TARGET_REPO_PAT }}
           path: target-repo
           persist-credentials: false
 
-      # 2️⃣ Setup Python
+      ### Step 2: Setup Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # 3️⃣ Install Python dependencies
+      ### Step 3: Install Python dependencies
       - name: Install Python dependencies
-        run: pip install requests beautifulsoup4 pyyaml
+        run: pip install requests beautifulsoup4
 
-      # 4️⃣ Install GitHub CLI
+      ### Step 4: Install GitHub CLI
       - name: Install GitHub CLI
         run: |
           sudo apt update
           sudo apt install gh -y
       
-      # 5️⃣ Authenticate GitHub CLI
+      ### Step 4.1: Authenticate Git with the token
       - name: Authenticate Git & GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
         run: |
           gh auth setup-git
 
-      # 6️⃣ Run update script
+      ### Step 5: Run the update script
+      # MODIFIED: Added an 'id' to this step so its outputs can be referenced later
       - name: Run update script
+        id: update_script # ID added here
         env:
           GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
         working-directory: ./target-repo
-        run: python scripts/update_unico_target.py
+        run: python ../scripts/update_unico_target.py # Adjust the path if the script is outside the 'target-repo'
+
+      ### Step 6: Send Slack notification
+      # This step will only run if the 'update_script' step has the output 'updated' set to 'true'
+      - name: Send Slack Notification
+        if: steps.update_script.outputs.updated == 'true'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_USERNAME: "GitHub Actions Bot"
+          SLACK_ICON_EMOJI: ":rocket:"
+          SLACK_CHANNEL: "general" # Optional: You can override the default webhook channel
+          SLACK_TITLE: "🚀 New SDK Update Ready for Review"
+          SLACK_MESSAGE: |
+            A new version of `unico-webframe` has been released and a PR was created automatically

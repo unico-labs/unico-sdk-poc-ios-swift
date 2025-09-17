@@ -10,10 +10,10 @@ import os
 URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-ios/release-notes"
 DEPENDENCY = "unicocheck-ios"
 FILE_TO_UPDATE = "Podfile"
-REPO_PATH = "." 
+REPO_PATH = "." # Path to the local repository
 
 # ===============================
-# 1️⃣ Buscar versão + data no site
+# Step 1: Fetch version and release date from the website
 # ===============================
 print("🔎 Fetching latest version from Unico's release notes...")
 response = requests.get(URL)
@@ -44,8 +44,9 @@ print(f"🗓️ Release date: {release_date}")
 
 
 # ===============================
-# 2️⃣ Ler Podfile do repo alvo
+# Step 2: Read Podfile from the target repository
 # ===============================
+
 podfile_path = os.path.join(REPO_PATH, FILE_TO_UPDATE)
 if not os.path.exists(podfile_path):
     print(f"❌ {FILE_TO_UPDATE} not found in the path: {podfile_path}")
@@ -71,14 +72,15 @@ if not current_version:
 print(f"📂 Current version in {FILE_TO_UPDATE}: {current_version}")
 
 # ===============================
-# 3️⃣ Atualizar se necessário
+# Step 3: Update dependency if necessary
 # ===============================
+
 if current_version != site_version:
     print(f"⬆️ New version found! Updating from {current_version} to {site_version}.")
     
     new_lines = []
     for line in lines:
-        # Substitui a versão antiga pela nova na linha correspondente
+        
         if current_version_pattern.search(line):
             new_line = re.sub(r"'([\d\.]+)'", f"'{site_version}'", line)
             new_lines.append(new_line)
@@ -90,41 +92,50 @@ if current_version != site_version:
 
     print(f"✅ Updated {DEPENDENCY} to version {site_version} in {FILE_TO_UPDATE}")
 
-    # --- Automação Git e GitHub ---
-    branch = f"chore/update-{DEPENDENCY}-v{site_version}"
-    tag = f"v{site_version}"
-    commit_message = f"chore: bump {DEPENDENCY} to v{site_version}"
+    branch = f"update-{DEPENDENCY}-v{site_version}"
+    tag = f"{DEPENDENCY}-v{site_version}"
 
-    print("🤖 Starting Git automation...")
+    # Create branch, commit, and push changes
     subprocess.run(["git", "checkout", "-b", branch], check=True)
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
     subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
-    subprocess.run(["git", "add", FILE_TO_UPDATE], check=True)
-    subprocess.run(["git", "commit", "-m", commit_message], check=True)
+    subprocess.run(["git", "add", "package.json"], check=True)
+    subprocess.run(["git", "commit", "-m", f"chore: bump {DEPENDENCY} to v{site_version}"], check=True)
     subprocess.run(["git", "push", "origin", branch], check=True)
 
-    tag_message = f"Release {DEPENDENCY} {site_version} ({release_date})"
-        
-    subprocess.run(["git", "tag", "-a", tag, "-m", tag_message], check=True)
+    # Create git tag and push it
+    subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True)
     subprocess.run(["git", "push", "origin", tag], check=True)
 
-    pr_body = f"""
-    ### 🚀 Automatic Update
-    Bumps `{DEPENDENCY}` from `{current_version}` to version **{site_version}**.
-    
-    - 📅 **Release date**: {release_date}
-    - 🔗 **Official Release Notes**: [{URL}]({URL})
+    # Create Pull Request using GitHub CLI
+    body = f"""
+    Automatic update of `{DEPENDENCY}` to version **{site_version}** 📅 Release date: **{release_date}** 🔗 [Official Release Notes]({URL})
     """
 
-    subprocess.run([
+    # MODIFIED: Capture the output of the 'gh pr create' command
+    pr_process = subprocess.run([
         "gh", "pr", "create",
-        "--title", commit_message,
-        "--body", pr_body,
-        "--head", branch,
-        "--base", "main" # Altere 'main' para sua branch principal se for outra
-    ], check=True)
+        "--title", f"Update {DEPENDENCY} to v{site_version}",
+        "--body", body,
+        "--head", branch
+    ], check=True, capture_output=True, text=True)
 
-    print(f"🎉 Successfully created branch, tag, and Pull Request for version {site_version}!")
+    # Extract the PR URL from stdout
+    pr_url = pr_process.stdout.strip()
+    print(f"✅ Pull Request created: {pr_url}")
+
+    # Export output variables for GitHub Actions
+    # This section writes the necessary data to a file so GitHub Actions can read them
+    if "GITHUB_OUTPUT" in os.environ:
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            print(f"updated=true", file=f)
+            print(f"new_version={site_version}", file=f)
+            print(f"release_date={release_date}", file=f)
+            print(f"pr_url={pr_url}", file=f)
 
 else:
     print("🔄 Already at the latest version, nothing to do.")
+    # If nothing was updated, set the 'updated' output to 'false'
+    if "GITHUB_OUTPUT" in os.environ:
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            print(f"updated=false", file=f)
