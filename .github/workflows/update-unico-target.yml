@@ -1,9 +1,12 @@
-name: Update Unico SDK IOS in Target Repo
+name: Update Unico SDK iOS in Target Repo
 
 on:
   schedule:
-    - cron: "0 9 */10 * *"   # Every 10 days, at 9 AM UTC
-  workflow_dispatch:         # Allows manual execution
+    # Roda às 09:00 da manhã (horário de Brasília) em dias alternados
+    - cron: "0 12 */2 * *"
+    # Roda às 17:00 da tarde (horário de Brasília) em dias alternados
+    - cron: "0 20 */2 * *"
+  workflow_dispatch:  # Allows manual execution
 
 jobs:
   update-sdk:
