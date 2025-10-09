@@ -130,7 +130,7 @@ if current_version != site_version:
     print(f"⬆️ New version found! Updating from {current_version} to {site_version}...")
 
     pattern_version_only = re.compile(
-        r"(?<=pod\s+['\"]" + re.escape(DEPENDENCY) + r"['\"],\s+['\"])([\d\.]+)(?=['\"])",
+        r"(pod\s+['\"]unicocheck-ios['\"].*?,\s*['\"])([\d.]+)(['\"])",
         re.I
     )
 
