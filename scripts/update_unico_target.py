@@ -184,14 +184,17 @@ if current_version != site_version:
     # Step 4: Export variables for GitHub Actions
     # ===============================
     github_output = os.getenv("GITHUB_OUTPUT")
+
     if github_output:
-        safe_notes = notes_formatted.replace("\n", "\\n")
         with open(github_output, "a") as f:
             f.write(f"updated=true\n")
             f.write(f"new_version={site_version}\n")
             f.write(f"release_date={release_date}\n")
             f.write(f"pr_url={pr_url}\n")
-            f.write(f"release_notes={safe_notes}\n")
+            # Usa a sintaxe "heredoc" para saídas de múltiplas linhas
+            f.write("release_notes<<EOF\n")
+            f.write(f"{notes_formatted}\n")
+            f.write("EOF\n")
 
 else:
     print("🔄 Already at the latest version, nothing to do.")
