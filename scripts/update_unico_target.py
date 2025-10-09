@@ -87,6 +87,12 @@ else:
     print("⚠️ No release notes found on the page.")
 
 # ===============================
+# Format release notes for use
+# ===============================
+notes_formatted = "\n".join([f"- {n}" for n in release_notes]) if release_notes else "_No release notes available_"
+slack_release_notes = notes_formatted  # keep actual line breaks for Slack
+
+# ===============================
 # Step 2: Read Podfile from the target repository
 # ===============================
 podfile_path = os.path.join(REPO_PATH, FILE_TO_UPDATE)
@@ -118,6 +124,9 @@ print(f"📂 Current version in {FILE_TO_UPDATE}: {current_version}")
 # ===============================
 # Step 3: Update dependency if necessary
 # ===============================
+updated = False
+pr_url = ""
+
 if current_version != site_version:
     print(f"⬆️ Updating from {current_version} to {site_version}...")
 
@@ -156,9 +165,6 @@ if current_version != site_version:
     subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True, cwd=REPO_PATH)
     subprocess.run(["git", "push", "origin", tag], check=True, cwd=REPO_PATH)
 
-    # Format release notes for GitHub Actions / Slack
-    notes_formatted = "\n".join([f"- {n}" for n in release_notes]) if release_notes else "_No release notes available_"
-
     # Create PR
     body = textwrap.dedent(f"""
     Automatic update of `{DEPENDENCY}` to version **{site_version}**
@@ -179,23 +185,19 @@ if current_version != site_version:
 
     pr_url = pr_process.stdout.strip()
     print(f"✅ Pull Request created: {pr_url}")
+    updated = True
 
-    # ===============================
-    # Step 4: Export variables for GitHub Actions
-    # ===============================
-    github_output = os.getenv("GITHUB_OUTPUT")
-    if github_output:
-        safe_notes = notes_formatted.replace("\n", "\\n")
-        with open(github_output, "a") as f:
-            f.write(f"updated=true\n")
-            f.write(f"new_version={site_version}\n")
-            f.write(f"release_date={release_date}\n")
-            f.write(f"pr_url={pr_url}\n")
-            f.write(f"release_notes={safe_notes}\n")
-
-else:
-    print("🔄 Already at the latest version, nothing to do.")
-    github_output = os.getenv("GITHUB_OUTPUT")
-    if github_output:
-        with open(github_output, "a") as f:
-            f.write("updated=false\n")
+# ===============================
+# Step 4: Export variables for GitHub Actions
+# ===============================
+github_output = os.getenv("GITHUB_OUTPUT")
+if github_output:
+    with open(github_output, "a") as f:
+        f.write(f"updated={str(updated).lower()}\n")
+        f.write(f"new_version={site_version}\n")
+        f.write(f"release_date={release_date}\n")
+        f.write(f"pr_url={pr_url}\n")
+        # For GitHub Actions outputs: escape newlines
+        f.write(f"release_notes={notes_formatted.replace(chr(10), '\\n')}\n")
+        # For Slack: preserve newlines
+        f.write(f"release_notes_clean={notes_formatted}\n")
