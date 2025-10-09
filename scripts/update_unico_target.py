@@ -199,8 +199,24 @@ if current_version != site_version:
             print(f"release_date={release_date}", file=f)
             print(f"pr_url={pr_url}", file=f)
 
+    # ===============================
+    # Step 4: Export variables for GitHub Actions
+    # ===============================
+    github_output = os.getenv("GITHUB_OUTPUT")
+    if github_output:
+        # Escapar quebras de linha para Slack (\\n)
+        safe_notes = notes_formatted.replace("\n", "\\n")
+
+        with open(github_output, "a") as f:
+            f.write(f"updated=true\n")
+            f.write(f"new_version={site_version}\n")
+            f.write(f"release_date={release_date}\n")
+            f.write(f"pr_url={pr_url}\n")
+            f.write(f"release_notes={safe_notes}\n")
+
 else:
     print("🔄 Already at the latest version, nothing to do.")
-    if "GITHUB_OUTPUT" in os.environ:
-        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-            print(f"updated=false", file=f)
+    github_output = os.getenv("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a") as f:
+            f.write("updated=false\n")
