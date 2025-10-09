@@ -1,4 +1,4 @@
-name: Update Unico SDK Swift in Target Repo
+name: Update Unico SDK IOS in Target Repo
 
 on:
   schedule:
@@ -16,11 +16,11 @@ jobs:
         with:
           persist-credentials: false
 
-      ### Step 1: Checkout the target repository (target-repo)
+      ### Step 1: Checkout the target repository
       - name: Checkout target
         uses: actions/checkout@v4
         with:
-          repository: unico-labs/unico-sdk-poc-flutter
+          repository: unico-labs/unico-sdk-poc-ios-swift
           token: ${{ secrets.TARGET_REPO_PAT }}
           path: target-repo
           persist-credentials: false
@@ -37,11 +37,9 @@ jobs:
 
       ### Step 4: Install GitHub CLI
       - name: Install GitHub CLI
-        run: |
-          sudo apt update
-          sudo apt install gh -y
+        run: sudo apt-get update && sudo apt-get install gh -y
       
-      ### Step 4.1: Authenticate Git with the token
+      ### Step 4.1: Authenticate Git & GitHub CLI
       - name: Authenticate Git & GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
@@ -49,16 +47,14 @@ jobs:
           gh auth setup-git
 
       ### Step 5: Run the update script
-      # MODIFIED: Added an 'id' to this step so its outputs can be referenced later
       - name: Run update script
-        id: update_script # ID added here
+        id: update_script
         env:
           GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
         working-directory: ./target-repo
-        run: python ../scripts/update_unico_target.py # Adjust the path if the script is outside the 'target-repo'
+        run: python ../scripts/update_unico_target.py
 
-      ### Step 6: Send Slack notification
-      # This step will only run if the 'update_script' step has the output 'updated' set to 'true'
+      ### Step 6: Send Slack notification (FULL VERSION)
       - name: Send Slack Notification
         if: steps.update_script.outputs.updated == 'true'
         uses: rtCamp/action-slack-notify@v2
@@ -66,7 +62,13 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: "GitHub Actions Bot"
           SLACK_ICON_EMOJI: ":rocket:"
-          SLACK_CHANNEL: "general" # Optional: You can override the default webhook channel
-          SLACK_TITLE: "🚀 New SDK Update Ready for Review"
+          SLACK_CHANNEL: "general"
+          SLACK_TITLE: "🚀 New SDK Flutter Update Ready for Review"
           SLACK_MESSAGE: |
-            A new version of `unico-webframe` has been released and a PR was created automatically
+            A new version of `unico_check` has been released and a PR was automatically created.
+            *📦 Version:* `${{ steps.update_script.outputs.new_version }}`
+            *🗓 Release Date:* `${{ steps.update_script.outputs.release_date }}`
+            *📝 Release Notes:* ``` 
+            ${{ steps.update_script.outputs.release_notes }}
+            ```
+            *🔗 PR:* <${{ steps.update_script.outputs.pr_url }}|Click here to review>
