@@ -137,7 +137,7 @@ if current_version != site_version:
     new_lines = []
     for line in lines:
         if pattern_version_only.search(line):
-            new_line = pattern_version_only.sub(site_version, line, count=1)
+            new_line = pattern_version_only.sub(rf"\1{site_version}\3", line, count=1)
             new_lines.append(new_line)
         else:
             new_lines.append(line)
@@ -147,14 +147,10 @@ if current_version != site_version:
 
     print(f"✅ Updated {DEPENDENCY} to version {site_version} in {FILE_TO_UPDATE}")
 
-    branch = f"update-{DEPENDENCY}-v{site_version}"
-    tag = f"{DEPENDENCY}-v{site_version}"
-
     rel_path = os.path.relpath(podfile_path, REPO_PATH)
-
     timestamp = int(time.time())
     branch = f"update-{DEPENDENCY}-v{site_version}-{timestamp}"
-    tag = f"{DEPENDENCY}-v{site_version}"
+    tag = f"{DEPENDENCY}-v{site_version}-{timestamp}"
 
     # Git commands executados no REPO_PATH
     subprocess.run(["git", "checkout", "-b", branch], check=True, cwd=REPO_PATH)
@@ -164,9 +160,14 @@ if current_version != site_version:
     subprocess.run(["git", "commit", "-m", f"chore: bump {DEPENDENCY} to v{site_version}"], check=True, cwd=REPO_PATH)
     subprocess.run(["git", "push", "origin", branch], check=True, cwd=REPO_PATH)
 
-    subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True, cwd=REPO_PATH)
+    subprocess.run(
+        ["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"],
+        check=True,
+        cwd=REPO_PATH
+    )
     subprocess.run(["git", "push", "origin", tag], check=True, cwd=REPO_PATH)
 
+    # Formata notas para PR/Slack
     if release_notes:
         notes_formatted = "\n".join([f"- {n}" for n in release_notes])
     else:
@@ -182,6 +183,7 @@ if current_version != site_version:
     {notes_formatted}
     """).strip()
 
+    # Criar PR
     pr_process = subprocess.run([
         "gh", "pr", "create",
         "--title", f"Update {DEPENDENCY} to v{site_version}",
@@ -191,13 +193,6 @@ if current_version != site_version:
 
     pr_url = pr_process.stdout.strip()
     print(f"✅ Pull Request created: {pr_url}")
-
-    if "GITHUB_OUTPUT" in os.environ:
-        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-            print(f"updated=true", file=f)
-            print(f"new_version={site_version}", file=f)
-            print(f"release_date={release_date}", file=f)
-            print(f"pr_url={pr_url}", file=f)
 
     # ===============================
     # Step 4: Export variables for GitHub Actions
