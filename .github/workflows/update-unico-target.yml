@@ -70,6 +70,6 @@ jobs:
             *🗓 Release Date:* `${{ steps.update_script.outputs.release_date }}`
             *📝 Release Notes:*
             ```
-            ${{ steps.update_script.outputs.release_notes_clean }}
+            ${{ steps.update_script.outputs.release_notes }}
             ```
             *🔗 PR:* <${{ steps.update_script.outputs.pr_url }}|Click here to review>
