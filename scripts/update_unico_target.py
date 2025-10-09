@@ -192,12 +192,11 @@ if current_version != site_version:
 # ===============================
 github_output = os.getenv("GITHUB_OUTPUT")
 if github_output:
+    escaped_notes = notes_formatted.replace("\n", "\\n")  # <<< ESCAPED for GitHub Actions output
     with open(github_output, "a") as f:
         f.write(f"updated={str(updated).lower()}\n")
         f.write(f"new_version={site_version}\n")
         f.write(f"release_date={release_date}\n")
         f.write(f"pr_url={pr_url}\n")
-        # For GitHub Actions outputs: escape newlines
-        f.write(f"release_notes={notes_formatted.replace(chr(10), '\\n')}\n")
-        # For Slack: preserve newlines
-        f.write(f"release_notes_clean={notes_formatted}\n")
+        f.write(f"release_notes={escaped_notes}\n")  # for GitHub Actions outputs
+        f.write(f"release_notes_clean={notes_formatted}\n")  # for Slack (preserve line breaks)
