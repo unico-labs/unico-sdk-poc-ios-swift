@@ -4,6 +4,8 @@ on:
   schedule:
     # Roda às 12:00 UTC (09:00 BRT) de Segunda a Sexta
     - cron: "0 12 * * 1-5"
+    
+  workflow_dispatch:  # Allows manual execution
 
 jobs:
   update-sdk:
