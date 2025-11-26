@@ -9,7 +9,7 @@ import time
 # ===============================
 # Settings
 # ===============================
-URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-ios/release-notes"
+URL = "https://devcenter.unico.io/unico-idcloud/by-client-integration/pt/sdk/sdks-disponiveis/sdk-ios/release-notes"
 DEPENDENCY = "unicocheck-ios"
 FILE_TO_UPDATE = "Podfile"
 
