@@ -9,7 +9,7 @@ import time
 # ===============================
 # Settings
 # ===============================
-URL = "https://devcenter.unico.io/unico-idcloud/by-client-integration/pt/sdk/sdks-disponiveis/sdk-ios/release-notes"
+URL = "https://developer.unico.io/pt-BR/developers/sdks-and-tools/ios/resources/release-notes"
 DEPENDENCY = "unicocheck-ios"
 FILE_TO_UPDATE = "Podfile"
 
@@ -37,47 +37,33 @@ site_version = None
 release_date = None
 release_notes = []
 
-version_pattern = re.compile(r"Versão\s*([\d.]+)\s*-\s*(\d{2}/\d{2}/\d{4})", re.I)
-
-header_div = None
-for div in soup.find_all("div"):
-    text = div.get_text(" ", strip=True)
-    if "Versão" in text:
-        m = version_pattern.search(text)
-        if m:
-            header_div = div
-            site_version = m.group(1)
-            release_date = m.group(2)
-            break
+content = soup.select_one("div.theme-doc-markdown")
+header_div = content.find("h2") if content else None
 
 if not header_div:
     print("❌ Could not capture the version from the website. Check the HTML structure.")
     exit(1)
 
+site_version = header_div.get_text(strip=True)
+
+# A data no site vem no formato MM/DD/YYYY; convertemos para DD/MM/YYYY
+date_tag = header_div.find_next_sibling("p")
+if date_tag:
+    date_match = re.search(r"(\d{2})/(\d{2})/(\d{4})", date_tag.get_text())
+    if date_match:
+        month, day, year = date_match.groups()
+        release_date = f"{day}/{month}/{year}"
+
 print(f"📦 Latest version on the website: {site_version}")
 print(f"🗓️ Release date: {release_date}")
 
 # Find release notes
-notes_block = None
-for elem in header_div.next_elements:
-    if getattr(elem, "name", None) == "ul":
-        classes = elem.get("class", []) or []
-        if any("space-y-2" in c for c in classes):
-            notes_block = elem
-            break
-
-if not notes_block:
-    parent = header_div.find_parent()
-    if parent:
-        notes_block = parent.find("ul", class_=lambda x: x and "space-y-2" in x)
-
+notes_block = header_div.find_next_sibling("ul")
 if notes_block:
     for li in notes_block.find_all("li"):
-        p = li.find("p")
-        if p:
-            text = p.get_text(" ", strip=True)
-            if text:
-                release_notes.append(text)
+        text = li.get_text(" ", strip=True)
+        if text:
+            release_notes.append(text)
 
 if release_notes:
     print("\n📝 Release notes found:")
