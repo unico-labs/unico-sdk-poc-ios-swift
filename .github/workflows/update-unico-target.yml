@@ -59,7 +59,7 @@ jobs:
       ### Step 6: Send Slack notification (FULL VERSION)
       - name: Send Slack Notification
         if: steps.update_script.outputs.updated == 'true'
-        uses: rtCamp/action-slack-notify@v2
+        uses: rtCamp/action-slack-notify@06cc13f74fa8d4d2296c09455d91e9453e4025f4 # v2.4.1
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: "GitHub Actions Bot"
